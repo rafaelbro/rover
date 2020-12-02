@@ -5,7 +5,7 @@
   <artifactId>rover</artifactId>
   <packaging>jar</packaging>
   <version>1.0.0</version>
-  <name>dateUtils</name>
+  <name>rover</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -16,14 +16,6 @@
   </properties>
 
   <dependencies>
-
-    <!--
-        <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>-->
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -58,6 +50,12 @@
         </configuration>
       </plugin>
 
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.7-SNAPSHOT</version>
+      </plugin>
+
       <!-- Set a JDK compiler level -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -67,6 +65,40 @@
           <source>${jdk.version}</source>
           <target>${jdk.version}</target>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.6</version>
+        <reportSets>
+          <reportSet>
+            <reports>              <!-- select reports -->
+              <report>index</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9</version>
+        <reportSets>
+          <reportSet>            <!-- by default, id = "default" -->
+            <reports>              <!-- select non-aggregate reports -->
+              <report>javadoc</report>
+              <report>test-javadoc</report>
+            </reports>
+          </reportSet>
+          <reportSet>            <!-- aggregate reportSet, to define in poms having modules -->
+            <id>aggregate</id>
+            <inherited>false</inherited>            <!-- don't run aggregate in child modules -->
+            <reports>
+              <report>aggregate</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
 
       <!-- Make this jar executable -->
@@ -89,6 +121,24 @@
 
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report>
+              <report>javadoc</report>
+              <report>test-javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
 
 

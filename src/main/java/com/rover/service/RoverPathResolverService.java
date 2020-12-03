@@ -26,7 +26,10 @@ public class RoverPathResolverService {
 
   public Long placeRover(Placement placement) {
     Long hash = calculateHash(placement);
-    if (roverMapping.put(hash, new Rover(placement, grid, roverNumber++)) != null) {
+    Rover rover = new Rover(placement, grid, roverNumber);
+    rover.validatePlacement();
+    roverNumber++;
+    if (roverMapping.put(hash, rover) != null) {
       throw new CollisionException("Cannot place a rover where another rover is parked");
     }
     return hash;

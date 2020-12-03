@@ -33,7 +33,7 @@ public final class FileUtilityService {
   public static final Grid getDimensions(String firstLine) {
     List<Integer> dimensions;
     try {
-      dimensions = Arrays.stream(firstLine.split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+      dimensions = Arrays.stream(firstLine.trim().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
     } catch (NumberFormatException e) {
       throw new InvalidFileFormatException("Invalid first line, it contains non-numeric characters");
     }
@@ -42,7 +42,7 @@ public final class FileUtilityService {
   }
 
   public static final Placement resolveOddLine(String oddLine, int lineNumber) {
-    List<String> oddLineElements = Arrays.stream(oddLine.split(" ")).collect(Collectors.toList());
+    List<String> oddLineElements = Arrays.stream(oddLine.trim().split(" ")).collect(Collectors.toList());
     if (oddLineElements.size() == 3) {
       try {
         int xPosition = Integer.parseInt(oddLineElements.get(0));
@@ -62,7 +62,7 @@ public final class FileUtilityService {
   }
 
   public static final List<Movement> resolveEvenLine(String evenLine, int lineNumber) {
-    char[] movements = evenLine.toCharArray();
+    char[] movements = evenLine.trim().toCharArray();
     List<Movement> movementList = new ArrayList<>();
     for (char move : movements) {
       try {

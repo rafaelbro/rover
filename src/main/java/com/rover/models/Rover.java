@@ -147,14 +147,19 @@ public class Rover {
     }
   }
 
+  public void validatePlacement() {
+    validateXCurrentPosition(this.getPlacement().getXPosition());
+    validateYCurrentPosition(this.getPlacement().getYPosition());
+  }
+
   private void validateXCurrentPosition(int xPositionValue) {
-    if (xPositionValue < 0 && xPositionValue > grid.getXMaxPosition()) {
+    if (xPositionValue < 0 || xPositionValue >= grid.getXMaxPosition()) {
       throw new OutOfBoundsException();
     }
   }
 
   private void validateYCurrentPosition(int yPositionValue) {
-    if (yPositionValue < 0 && yPositionValue > grid.getYMaxPosition()) {
+    if (yPositionValue < 0 || yPositionValue >= grid.getYMaxPosition()) {
       throw new OutOfBoundsException();
     }
   }

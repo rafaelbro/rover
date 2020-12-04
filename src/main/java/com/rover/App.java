@@ -16,15 +16,29 @@ public class App {
     List<String> file = FileUtilityService.readFileLines(filePath);
     Grid grid = FileUtilityService.getDimensions(file.get(0));
     RoverPathResolverService roverService = new RoverPathResolverService(grid);
-    for (int lineNumber = 1; lineNumber < file.size(); lineNumber += 2) {
-      Placement roverPos = FileUtilityService.resolveOddLine(file.get(lineNumber), lineNumber);
-      List<Movement> roverMoves = FileUtilityService.resolveEvenLine(file.get(lineNumber + 1), lineNumber + 1);
-      Long positionHash = roverService.placeRover(roverPos);
-      roverService.resolveRoverPath(roverMoves, positionHash);
-    }
+    loopRovers(roverService, file);
+    printRovers(roverService);
+  }
+
+  private static void printRovers(RoverPathResolverService roverService) {
     List<String> roverPositions = roverService.getAllRovers();
     for (String roverPosition : roverPositions) {
       System.out.println(roverPosition);
+    }
+  }
+
+  private static void loopRovers(RoverPathResolverService roverService, List<String> file) {
+    Placement roverPos;
+    Long positionHash = Long.valueOf(0);
+    List<Movement> roverMoves;
+    for (int lineNumber = 1; lineNumber < file.size(); lineNumber++) {
+      if ((lineNumber % 2) == 1) {
+        roverPos = FileUtilityService.resolveOddLine(file.get(lineNumber), lineNumber);
+        positionHash = roverService.placeRover(roverPos);
+      } else {
+        roverMoves = FileUtilityService.resolveEvenLine(file.get(lineNumber), lineNumber);
+        roverService.resolveRoverPath(roverMoves, positionHash);
+      }
     }
   }
 }

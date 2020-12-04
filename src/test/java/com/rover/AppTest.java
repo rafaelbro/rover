@@ -27,6 +27,7 @@ public class AppTest {
   private static final String FILE_PATH_INEXISTENT = "noFile.txt";
   private static final String FILE_PATH_WRONG_FORMAT = "invalidFileFormat.txt";
   private static final String FILE_PATH_COLLISION = "collisionFile.txt";
+  private static final String FILE_PATH_LOTS_OF_ROVERS = "lotsOfRovers.txt";
 
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -53,6 +54,19 @@ public class AppTest {
 
     Assertions.assertEquals("1 3 N", outputs.get(0));
     Assertions.assertEquals("5 1 E", outputs.get(1));
+  }
+
+  @Test
+  public void runningAppTestShouldReturnExpectedOutputWhenGivenInput2() throws IOException {
+    System.setProperty("pathToFile", getResourcePath(FILE_PATH_LOTS_OF_ROVERS));
+    App.main(null);
+    List<String> outputs = outContent.toString().lines().collect(Collectors.toList());
+
+    Assertions.assertEquals("8 6 S", outputs.get(0));
+    Assertions.assertEquals("0 1 S", outputs.get(1));
+    Assertions.assertEquals("2 7 N", outputs.get(2));
+    Assertions.assertEquals("9 2 E", outputs.get(3));
+    Assertions.assertEquals("0 0 E", outputs.get(4));
   }
 
   @Test

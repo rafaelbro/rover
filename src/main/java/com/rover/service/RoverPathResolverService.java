@@ -35,7 +35,7 @@ public class RoverPathResolverService {
     return hash;
   }
 
-  public void resolveRoverPath(List<Movement> movements, Long hash) {
+  public Long resolveRoverPath(List<Movement> movements, Long hash) {
     Long currentHash = hash;
     for (Movement move : movements) {
       if (move.equals(Movement.M)) {
@@ -45,6 +45,7 @@ public class RoverPathResolverService {
         rover.resolveMovement(move);
       }
     }
+    return currentHash;
   }
 
   public List<String> getAllRovers() {
@@ -56,7 +57,7 @@ public class RoverPathResolverService {
     return formattedList;
   }
 
-  private List<Rover> getSortedRoverList() {
+  public List<Rover> getSortedRoverList() {
     List<Rover> roverList = roverMapping.values().stream().collect(Collectors.toList());
     return roverList.stream().sorted(Comparator.comparingInt(Rover::getRoverNumber)).collect(Collectors.toList());
   }

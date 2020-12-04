@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import com.rover.enums.Heading;
 
-public class Placement {
+public final class Placement {
 
   private int xPosition;
   private int yPosition;
@@ -19,11 +19,11 @@ public class Placement {
     this.heading = heading;
   }
 
-  public int getXPosition() {
+  public final int getXPosition() {
     return this.xPosition;
   }
 
-  public void setXPosition(int xPosition) {
+  public final void setXPosition(int xPosition) {
     this.xPosition = xPosition;
   }
 

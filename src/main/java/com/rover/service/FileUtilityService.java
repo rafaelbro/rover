@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,14 @@ public final class FileUtilityService {
       return br.lines().collect(Collectors.toList());
     } catch (FileNotFoundException e) {
       throw new InvalidFilePathException(e);
+    } catch (NullPointerException e) {
+      throw new InvalidFilePathException(e);
     }
+  }
+
+  public static final String readFilePath() throws IOException {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    return reader.readLine();
   }
 
   public static final Grid getDimensions(String firstLine) {

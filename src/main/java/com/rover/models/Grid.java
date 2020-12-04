@@ -2,7 +2,8 @@ package com.rover.models;
 
 import java.util.Objects;
 
-public class Grid {
+public final class Grid {
+
   private int xMaxPosition;
   private int yMaxPosition;
 

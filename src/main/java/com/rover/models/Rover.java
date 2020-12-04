@@ -6,7 +6,7 @@ import com.rover.enums.Heading;
 import com.rover.enums.Movement;
 import com.rover.exceptions.OutOfBoundsException;
 
-public class Rover {
+public final class Rover {
 
   private Placement placement;
   private Grid grid;
@@ -153,13 +153,13 @@ public class Rover {
   }
 
   private void validateXCurrentPosition(int xPositionValue) {
-    if (xPositionValue < 0 || xPositionValue >= grid.getXMaxPosition()) {
+    if (xPositionValue < 0 || xPositionValue > grid.getXMaxPosition()) {
       throw new OutOfBoundsException();
     }
   }
 
   private void validateYCurrentPosition(int yPositionValue) {
-    if (yPositionValue < 0 || yPositionValue >= grid.getYMaxPosition()) {
+    if (yPositionValue < 0 || yPositionValue > grid.getYMaxPosition()) {
       throw new OutOfBoundsException();
     }
   }

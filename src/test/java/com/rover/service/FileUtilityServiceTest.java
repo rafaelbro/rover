@@ -1,5 +1,6 @@
 package com.rover.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,7 +16,9 @@ import org.junit.jupiter.api.Test;
 
 public class FileUtilityServiceTest {
 
-  private static final String PROJECT_RESOURCES = "\\src\\test\\java\\com\\rover\\resources\\";
+  private static final String FILE_SEPARATOR = File.separator;
+  private static final String PROJECT_RESOURCES = FILE_SEPARATOR + "src" + FILE_SEPARATOR + "test" + FILE_SEPARATOR
+      + "java" + FILE_SEPARATOR + "com" + FILE_SEPARATOR + "rover" + FILE_SEPARATOR + "resources" + FILE_SEPARATOR;
   private static final String EXAMPLE_RESOURCE = "movements.txt";
   private static final String EXAMPLE_INVALID_RESOURCE = "invalid_resource.txt";
 
@@ -31,6 +34,9 @@ public class FileUtilityServiceTest {
   public void readFileLinesShouldThrowInvalidFilePathExceptionWhenGivenIncorrectPath() throws IOException {
     Assertions.assertThrows(InvalidFilePathException.class, () -> {
       FileUtilityService.readFileLines(getResourcePath(EXAMPLE_INVALID_RESOURCE));
+    });
+    Assertions.assertThrows(InvalidFilePathException.class, () -> {
+      FileUtilityService.readFileLines(null);
     });
   }
 

@@ -11,7 +11,9 @@ import com.rover.service.RoverPathResolverService;
 
 public class App {
   public static void main(String[] args) throws IOException {
-    List<String> file = FileUtilityService.readFileLines("D:\\OneDrive2\\OneDrive\\Development\\Rover\\movements.txt");
+    String filePath = System.getProperty("pathToFile");
+
+    List<String> file = FileUtilityService.readFileLines(filePath);
     Grid grid = FileUtilityService.getDimensions(file.get(0));
     RoverPathResolverService roverService = new RoverPathResolverService(grid);
     for (int lineNumber = 1; lineNumber < file.size(); lineNumber += 2) {
@@ -20,6 +22,9 @@ public class App {
       Long positionHash = roverService.placeRover(roverPos);
       roverService.resolveRoverPath(roverMoves, positionHash);
     }
-    System.out.println(roverService.getAllRovers().toString());
+    List<String> roverPositions = roverService.getAllRovers();
+    for (String roverPosition : roverPositions) {
+      System.out.println(roverPosition);
+    }
   }
 }
